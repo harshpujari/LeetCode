@@ -1,0 +1,10 @@
+class Solution:
+    def __init__(self):
+        self.result = []
+    
+    def dfs(self, root: Optional[TreeNode]) -> List[int]:
+        if root:
+            self.result.insert(0, root.val)
+            self.dfs(root.right)
+            self.dfs(root.left)
+        return self.result
