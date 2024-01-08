@@ -8,5 +8,5 @@ class Solution :
       number_indices[num] = i
 
 instance = Solution()
-result = instance.two_sum([2,7,11,15],9)
+result = instance.two_sum([2,7,8,999,11,15],9)
 print(result)
