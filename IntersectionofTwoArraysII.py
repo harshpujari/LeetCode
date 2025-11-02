@@ -14,3 +14,25 @@ class Solution:
 
         return result
         
+#Follow-up 1: Both Arrays Sorted
+
+def intersect_sorted(nums1, nums2):
+    # If not sorted, sort them: nums1.sort(), nums2.sort()
+    i = j = 0
+    result = []
+    
+    while i < len(nums1) and j < len(nums2):
+        if nums1[i] < nums2[j]:
+            i += 1
+        elif nums1[i] > nums2[j]:
+            j += 1
+        else:  # Equal
+            result.append(nums1[i])
+            i += 1
+            j += 1
+    
+    return result
+
+# Time Complexity: O(n + m) if already sorted, O(n log n + m log m) if sorting needed
+# Space Complexity: O(1) excluding output
+
