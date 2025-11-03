@@ -51,3 +51,20 @@ def intersect_small_nums1(nums1, nums2):
     
     return result
 
+# Follow-up 3: nums2 on Disk, Limited Memory
+
+def intersect_disk_limited_memory(nums1, nums2_chunks):
+    from collections import Counter
+    
+    # Load smaller array (nums1) into memory
+    count = Counter(nums1)
+    result = []
+    
+    # Process nums2 in chunks from disk
+    for chunk in nums2_chunks:  # Each chunk is a portion of nums2
+        for num in chunk:
+            if count[num] > 0:
+                result.append(num)
+                count[num] -= 1
+    
+    return result
