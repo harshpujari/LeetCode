@@ -36,3 +36,18 @@ def intersect_sorted(nums1, nums2):
 # Time Complexity: O(n + m) if already sorted, O(n log n + m log m) if sorting needed
 # Space Complexity: O(1) excluding output
 
+#Follow-up 2: One Array is Much Smaller
+def intersect_small_nums1(nums1, nums2):
+    from collections import Counter
+    
+    # Always count the smaller array
+    count = Counter(nums1)  # nums1 is smaller
+    result = []
+    
+    for num in nums2:
+        if count[num] > 0:
+            result.append(num)
+            count[num] -= 1
+    
+    return result
+
