@@ -1,5 +1,5 @@
 # solution 1
-
+from typing import List
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
         counter = 0
