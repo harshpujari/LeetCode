@@ -6,3 +6,4 @@ class Solution:
             for j in range (i):
                 if nums[i]+nums[j]==target:
                     return [j,i]
+# solution 2
