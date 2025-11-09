@@ -7,3 +7,11 @@ class Solution:
                 if nums[i]+nums[j]==target:
                     return [j,i]
 # solution 2
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        seen = {}  # value -> index
+        for i, num in enumerate(nums):
+            complement = target - num
+            if complement in seen:
+                return [seen[complement], i]
+            seen[num] = i
