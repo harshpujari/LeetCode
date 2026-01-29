@@ -26,7 +26,7 @@ class Solution:
             # Check for overflow before adding the digit
             # If result > INT_MAX // 10, overflow will occur
             # If result == INT_MAX // 10 and digit > 7, overflow will occur
-            if result > INT_MAX // 10 or (result == INT_MAX // 10 and digit > 7):
+            if result > (INT_MAX - digit) // 10:
                 return INT_MAX if sign == 1 else INT_MIN
 
             result = result * 10 + digit
