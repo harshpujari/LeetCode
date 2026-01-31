@@ -385,11 +385,7 @@ export default function App() {
   const fastVis = s.fast !== null;
 
   // Handle overlap: when slow & fast at same node
-  let slowOffX = slowX, fastOffX = fastX;
-  if (slowVis && fastVis && s.slow === s.fast) {
-    slowOffX = slowX - 26;
-    fastOffX = fastX + 26;
-  }
+  const sameNode = slowVis && fastVis && s.slow === s.fast;
 
   const headX = nCX(1, d);
 
@@ -481,11 +477,37 @@ export default function App() {
                 return <Arrow key={key} x1={x1} x2={x2} visible={show} dashed={dashed} />;
               })}
 
-              {/* slow pointer */}
-              <PointerTag x={slowOffX} label="slow" color={C.slowC} below={true} visible={slowVis} />
-
-              {/* fast pointer */}
-              <PointerTag x={fastOffX} label="fast" color={C.fastC} below={true} visible={fastVis} />
+              {/* slow & fast pointers */}
+              {sameNode ? (
+                <div style={{
+                  position: 'absolute', left: slowX, top: BOX_Y + NH + 10,
+                  transform: 'translateX(-50%)',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center',
+                  transition: T, opacity: 1, zIndex: 5,
+                }}>
+                  <div style={{ width: 0, height: 0, borderLeft: '5px solid transparent',
+                    borderRight: '5px solid transparent', borderBottom: `6px solid ${C.dim}`,
+                    marginBottom: 3,
+                  }} />
+                  <div style={{ display: 'flex', gap: 4 }}>
+                    <div style={{
+                      fontFamily: mono, fontSize: 10, fontWeight: 700, color: C.slowC,
+                      background: C.slowC + '18', padding: '2px 8px', borderRadius: 4,
+                      letterSpacing: 1.5,
+                    }}>slow</div>
+                    <div style={{
+                      fontFamily: mono, fontSize: 10, fontWeight: 700, color: C.fastC,
+                      background: C.fastC + '18', padding: '2px 8px', borderRadius: 4,
+                      letterSpacing: 1.5,
+                    }}>fast</div>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <PointerTag x={slowX} label="slow" color={C.slowC} below={true} visible={slowVis} />
+                  <PointerTag x={fastX} label="fast" color={C.fastC} below={true} visible={fastVis} />
+                </>
+              )}
 
               {/* Result highlight */}
               {s.result && (
@@ -524,9 +546,7 @@ export default function App() {
           background: C.surface, border: `1px solid ${C.border}`,
           borderRadius: 12, padding: '16px 20px',
         }}>
-          <ProgressDots current={step} total={total} />
-
-          <div style={{ marginTop: 14 }}>
+          <div>
             <input
               type="range" min={0} max={total - 1} value={step}
               onChange={(e) => setStep(Number(e.target.value))}
