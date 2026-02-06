@@ -28,3 +28,5 @@ class Solution:
             stack.append(y.left)
 
         return True
+      
+        
