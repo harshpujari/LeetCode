@@ -10,3 +10,15 @@ class Solution:
             else:
                 r = mid - 1
         return r
+
+    def mySqrt1(self, x: int) -> int:
+        return int(x ** 0.5)
+    
+    def mySqrt2(self, x: int) -> int:
+        r = x
+        while r * r > x:
+            r = (r + x // r) // 2
+        return r
+
+
+
