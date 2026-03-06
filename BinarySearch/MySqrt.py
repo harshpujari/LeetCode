@@ -12,9 +12,11 @@ class Solution:
         return r
 
     def mySqrt1(self, x: int) -> int:
+        # most easy way to calculate the square root of a number is to use the built-in exponentiation operator
         return int(x ** 0.5)
     
     def mySqrt2(self, x: int) -> int:
+        
         r = x
         while r * r > x:
             r = (r + x // r) // 2
