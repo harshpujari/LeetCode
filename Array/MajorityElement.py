@@ -13,7 +13,7 @@ class Solution:
                 result = i
                 
         return result
-
+# Boyer-Moore
 class Solution:
     def majorityElement(self, nums: list[int]) -> int:
         candidate = None
