@@ -29,7 +29,7 @@ const sans = "system-ui,-apple-system,'Segoe UI',sans-serif";
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Problem Data
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const STR = ['a', 'b', 'b', 'a'];
+const STR = ['t', 'm', 'm', 'z', 'u', 'x', 't'];
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // Code Lines
@@ -54,7 +54,7 @@ const CODE = [
 const STEPS = [
   {
     title: "Initial Input",
-    desc: 'Given s = "abba". Goal: find the length of the longest substring with no repeating characters. We will slide a window [left, right] across the string, tracking each character\'s last-seen index in a hash map.',
+    desc: 'Given s = "tmmzuxt". Goal: find the length of the longest substring with no repeating characters. We will slide a window [left, right] across the string, tracking each character\'s last-seen index in a hash map. This input was chosen because it exercises BOTH tricky cases: a duplicate inside the window AND a stale duplicate that lives before the window.',
     left: null, right: null, char: null,
     charIndex: {}, maxLen: 0,
     calc: null, done: false,
@@ -69,62 +69,89 @@ const STEPS = [
     codeHL: [1, 2],
   },
   {
-    title: "right = 0 · char = 'a' · NEW",
-    desc: "Enter loop. char = 'a'. Check: 'a' not in char_index → skip the shrink branch. Record char_index['a'] = 0. Window size = 0 − 0 + 1 = 1, so max_len becomes 1.",
-    left: 0, right: 0, char: 'a',
-    charIndex: { a: 0 }, maxLen: 1,
-    calc: { label: "'a' in char_index?", result: 'NO', resultColor: C.green, conseq: 'just record & update max' },
+    title: "right = 0 · char = 't' · NEW",
+    desc: "Enter loop. char = 't'. Check: 't' not in char_index → skip the shrink branch. Record char_index['t'] = 0. Window size = 0 − 0 + 1 = 1, so max_len becomes 1. Remember this index 0 for 't' — it will become the 'stale' entry that matters at the very end.",
+    left: 0, right: 0, char: 't',
+    charIndex: { t: 0 }, maxLen: 1,
+    calc: { label: "'t' in char_index?", result: 'NO', resultColor: C.green, conseq: 'just record & update max' },
     done: false,
     codeHL: [4, 5, 7, 8],
   },
   {
-    title: "right = 1 · char = 'b' · NEW",
-    desc: "char = 'b'. 'b' not in char_index → skip shrink. Record char_index['b'] = 1. Window size = 1 − 0 + 1 = 2, so max_len becomes 2. Window is currently \"ab\".",
-    left: 0, right: 1, char: 'b',
-    charIndex: { a: 0, b: 1 }, maxLen: 2,
-    calc: { label: "'b' in char_index?", result: 'NO', resultColor: C.green, conseq: 'just record & update max' },
+    title: "right = 1 · char = 'm' · NEW",
+    desc: "char = 'm'. 'm' not in char_index → skip shrink. Record char_index['m'] = 1. Window size = 1 − 0 + 1 = 2, so max_len becomes 2. Window is currently \"tm\".",
+    left: 0, right: 1, char: 'm',
+    charIndex: { t: 0, m: 1 }, maxLen: 2,
+    calc: { label: "'m' in char_index?", result: 'NO', resultColor: C.green, conseq: 'just record & update max' },
     done: false,
     codeHL: [4, 5, 7, 8],
   },
   {
-    title: "right = 2 · char = 'b' · REPEAT",
-    desc: "char = 'b'. 'b' IS in char_index at index 1. Is 1 ≥ left (0)? YES — the duplicate is inside the window. Shrink: left = 1 + 1 = 2. The window now starts fresh after the previous 'b'.",
-    left: 2, right: 2, char: 'b',
-    charIndex: { a: 0, b: 1 }, maxLen: 2,
-    calc: { label: "char_index['b']=1 ≥ left=0 ?", result: 'YES · shrink', resultColor: C.orange, conseq: 'left = 1 + 1 = 2' },
+    title: "right = 2 · char = 'm' · REPEAT",
+    desc: "char = 'm'. 'm' IS in char_index at index 1. Is 1 ≥ left (0)? YES — the duplicate sits inside the current window. Shrink: left = 1 + 1 = 2. The window now restarts immediately after the previous 'm', dropping the leading \"tm\".",
+    left: 2, right: 2, char: 'm',
+    charIndex: { t: 0, m: 1 }, maxLen: 2,
+    calc: { label: "char_index['m']=1 ≥ left=0 ?", result: 'YES · shrink', resultColor: C.orange, conseq: 'left = 1 + 1 = 2' },
     done: false,
     codeHL: [4, 5, 6],
   },
   {
     title: "right = 2 · record & update",
-    desc: "Update char_index['b'] = 2 (overwriting the old value 1). Window size = 2 − 2 + 1 = 1. max_len stays at 2 since 1 < 2.",
-    left: 2, right: 2, char: 'b',
-    charIndex: { a: 0, b: 2 }, maxLen: 2,
+    desc: "Update char_index['m'] = 2 (overwriting the old value 1). Window size = 2 − 2 + 1 = 1. max_len stays at 2 since 1 < 2. Notice that char_index['t'] = 0 is still lingering even though 't' is no longer inside the window — this is exactly the stale entry we'll meet again later.",
+    left: 2, right: 2, char: 'm',
+    charIndex: { t: 0, m: 2 }, maxLen: 2,
     calc: null, done: false,
     codeHL: [7, 8],
   },
   {
-    title: "right = 3 · char = 'a' · STALE",
-    desc: "char = 'a'. 'a' IS in char_index at index 0. Is 0 ≥ left (2)? NO — that index is BEFORE the window, a stale leftover. Do NOT move left. This is the subtle case the '≥ left' guard exists for.",
-    left: 2, right: 3, char: 'a',
-    charIndex: { a: 0, b: 2 }, maxLen: 2,
-    calc: { label: "char_index['a']=0 ≥ left=2 ?", result: 'NO · stale', resultColor: C.red, conseq: 'keep left unchanged' },
+    title: "right = 3 · char = 'z' · NEW",
+    desc: "char = 'z'. 'z' not in char_index → skip shrink. Record char_index['z'] = 3. Window size = 3 − 2 + 1 = 2. max_len stays at 2. Window is now \"mz\".",
+    left: 2, right: 3, char: 'z',
+    charIndex: { t: 0, m: 2, z: 3 }, maxLen: 2,
+    calc: { label: "'z' in char_index?", result: 'NO', resultColor: C.green, conseq: 'just record & update max' },
+    done: false,
+    codeHL: [4, 5, 7, 8],
+  },
+  {
+    title: "right = 4 · char = 'u' · NEW",
+    desc: "char = 'u'. 'u' not in char_index → skip shrink. Record char_index['u'] = 4. Window size = 4 − 2 + 1 = 3, so max_len becomes 3. Window is now \"mzu\".",
+    left: 2, right: 4, char: 'u',
+    charIndex: { t: 0, m: 2, z: 3, u: 4 }, maxLen: 3,
+    calc: { label: "'u' in char_index?", result: 'NO', resultColor: C.green, conseq: 'just record & update max' },
+    done: false,
+    codeHL: [4, 5, 7, 8],
+  },
+  {
+    title: "right = 5 · char = 'x' · NEW",
+    desc: "char = 'x'. 'x' not in char_index → skip shrink. Record char_index['x'] = 5. Window size = 5 − 2 + 1 = 4, so max_len becomes 4. Window is now \"mzux\".",
+    left: 2, right: 5, char: 'x',
+    charIndex: { t: 0, m: 2, z: 3, u: 4, x: 5 }, maxLen: 4,
+    calc: { label: "'x' in char_index?", result: 'NO', resultColor: C.green, conseq: 'just record & update max' },
+    done: false,
+    codeHL: [4, 5, 7, 8],
+  },
+  {
+    title: "right = 6 · char = 't' · STALE",
+    desc: "char = 't'. 't' IS in char_index at index 0. Is 0 ≥ left (2)? NO — that index is BEFORE the window, a stale leftover from the very first 't' we saw way back at step 3. Do NOT move left. This is the subtle case the '≥ left' guard exists for: a naïve implementation that forgot this guard would incorrectly jump left to 1 and miss the optimal answer.",
+    left: 2, right: 6, char: 't',
+    charIndex: { t: 0, m: 2, z: 3, u: 4, x: 5 }, maxLen: 4,
+    calc: { label: "char_index['t']=0 ≥ left=2 ?", result: 'NO · stale', resultColor: C.red, conseq: 'keep left unchanged' },
     done: false,
     codeHL: [4, 5],
   },
   {
-    title: "right = 3 · record & update",
-    desc: "Update char_index['a'] = 3. Window size = 3 − 2 + 1 = 2. max_len stays at 2. The loop ends — all characters processed.",
-    left: 2, right: 3, char: 'a',
-    charIndex: { a: 3, b: 2 }, maxLen: 2,
+    title: "right = 6 · record & update",
+    desc: "Update char_index['t'] = 6 (overwriting the stale 0). Window size = 6 − 2 + 1 = 5, so max_len becomes 5. Window is now \"mzuxt\". The loop ends — all characters processed.",
+    left: 2, right: 6, char: 't',
+    charIndex: { t: 6, m: 2, z: 3, u: 4, x: 5 }, maxLen: 5,
     calc: null, done: false,
     codeHL: [7, 8],
   },
   {
     title: "Return max_len ✓",
-    desc: 'return max_len → 2. The longest substrings without repeating characters are "ab" (indices 0..1) and "ba" (indices 2..3), both of length 2. Time O(n), space O(min(n, alphabet size)).',
-    left: 2, right: 3, char: null,
-    charIndex: { a: 3, b: 2 }, maxLen: 2,
+    desc: 'return max_len → 5. The longest substring without repeating characters is "mzuxt" (indices 2..6) with length 5. Note how a buggy "always shrink on duplicate" version would have returned 4 instead, missing the final character. Time O(n), space O(min(n, alphabet size)).',
+    left: 2, right: 6, char: null,
+    charIndex: { t: 6, m: 2, z: 3, u: 4, x: 5 }, maxLen: 5,
     calc: null, done: true,
     codeHL: [10],
   },
@@ -456,7 +483,7 @@ export default function App() {
             color: C.accent, letterSpacing: -0.3, marginBottom: 4,
           }}>Longest Substring Without Repeating Characters</h1>
           <p style={{ fontSize: 13, color: C.dim }}>
-            s = "abba" &nbsp;·&nbsp; Sliding Window + Hash Map &nbsp;·&nbsp; Use ← → keys or buttons
+            s = "tmmzuxt" &nbsp;·&nbsp; Sliding Window + Hash Map &nbsp;·&nbsp; Use ← → keys or buttons
           </p>
         </div>
 
