@@ -27,8 +27,6 @@ class Solution:
             else:
                 lo = i + 1  # move right in A
 '''
----
-
 ### Step 1: The Goal (The Two Boxes)
 The median is simply the middle point of a dataset. It means half the numbers are on the left, and half are on the right. Furthermore, every number on the left must be smaller than every number on the right.
 
