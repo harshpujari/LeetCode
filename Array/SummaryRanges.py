@@ -21,3 +21,9 @@ class Solution:
             i += 1
             
         return ranges
+'''
+Complexity Analysis
+Time Complexity: $O(n)$, where $n$ is the length of nums. 
+Even though there is a nested while loop, the index i only ever moves forward, visiting each element exactly once.
+Space Complexity: $O(1)$ (excluding the space required for the output list), as we only use a few variables to track indices and values.
+'''
