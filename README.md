@@ -1,6 +1,6 @@
 # LeetCode Solutions
 
-Python solutions with React step-through visualizers for selected problems.
+Python solutions with React step-through visualizers for selected problems. 
 
 ## Structure
 
@@ -9,6 +9,7 @@ LeetCode/
 ├── Array/          — Array & sliding window
 ├── Bash/           — Bash commands 
 ├── BinarySearch/   — Binary search
+├── BitManipulation/— Bit manipulation
 ├── LinkedList/     — Linked lists
 ├── Math/           — Math & bit manipulation
 ├── Sorting/        — Sorting reference notes
