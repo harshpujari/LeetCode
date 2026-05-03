@@ -15,6 +15,7 @@ LeetCode/
 ├── Math/               — Math & bit manipulation
 ├── Sorting/            — Sorting reference notes
 ├── SQL/                — Simple SQL solution
+├── Stack/              — Stack and more 
 ├── String/             — Strings
 ├── SystemDesign/       — System design components
 └── Tree/               — Binary trees
