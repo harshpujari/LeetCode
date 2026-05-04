@@ -25,4 +25,4 @@ LeetCode/
 
 Selected problems include a self-contained React JSX/TSX step-through visualizer — dark terminal aesthetic, no external UI libraries. Drop any `.jsx` file into [StackBlitz](https://stackblitz.com) or [CodeSandbox](https://codesandbox.io) to run it.
 
-See [UI.md](UI.md) for the design spec.
+See [UI.md](UI.md) for the design specs.
