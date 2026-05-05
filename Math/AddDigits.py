@@ -9,3 +9,10 @@ class Solution:
             num = total
             
         return num
+
+# some AI solution that I don't understand 
+class Solution:
+    def addDigits(self, num: int) -> int:
+        if num == 0:
+            return 0
+        return 1 + (num - 1) % 9
