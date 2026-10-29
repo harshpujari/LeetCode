@@ -12,7 +12,7 @@ LeetCode/
 ├── BitManipulation/    — Bit manipulation
 ├── DynamicProgramming/ — Dynamic Programming
 ├── LinkedList/         — Linked lists
-├── Math/               — Math & bit manipulation
+├── Math/               — Math
 ├── Sorting/            — Sorting reference notes
 ├── SQL/                — Simple SQL solution
 ├── Stack/              — Stack and more 
