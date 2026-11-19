@@ -492,7 +492,8 @@ export default function App() {
 
         {/* Description */}
         <div style={{
-          background: C.surface, border: `1px solid ${C.border}`,
+          background: C.surface,
+          borderTop: `1px solid ${C.border}`, borderRight: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`,
           borderLeft: `3px solid ${s.done ? C.green : C.accent}`,
           borderRadius: '0 10px 10px 0',
           padding: '14px 18px', marginBottom: 16,

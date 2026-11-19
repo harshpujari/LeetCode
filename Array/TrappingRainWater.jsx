@@ -215,8 +215,10 @@ function ElevationChart({ s }) {
                   <div style={{
                     position: 'absolute', bottom: h * UNIT, left: 0, width: COL_W, height: wtr * UNIT,
                     background: done ? C.greenGlow : isCur ? 'rgba(56,189,248,0.35)' : C.accentGlow,
-                    border: `1px solid ${done ? C.green : C.accent}${isCur ? '' : '88'}`,
-                    borderBottom: 'none', borderRadius: '4px 4px 0 0',
+                    borderTop:   `1px solid ${done ? C.green : C.accent}${isCur ? '' : '88'}`,
+                    borderLeft:  `1px solid ${done ? C.green : C.accent}${isCur ? '' : '88'}`,
+                    borderRight: `1px solid ${done ? C.green : C.accent}${isCur ? '' : '88'}`,
+                    borderRadius: '4px 4px 0 0',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontFamily: mono, fontSize: 11, fontWeight: 700,
                     color: done ? C.green : C.accent,
@@ -228,7 +230,8 @@ function ElevationChart({ s }) {
                 {h > 0 && (
                   <div style={{
                     position: 'absolute', bottom: 0, left: 0, width: COL_W, height: h * UNIT,
-                    background: barBg, border: `2px solid ${barBorder}`, borderBottom: 'none',
+                    background: barBg,
+                    borderTop: `2px solid ${barBorder}`, borderLeft: `2px solid ${barBorder}`, borderRight: `2px solid ${barBorder}`,
                     borderRadius: '5px 5px 0 0',
                     display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: 4,
                     fontFamily: mono, fontSize: 11, fontWeight: 700,
@@ -500,7 +503,8 @@ export default function App() {
 
         {/* Description */}
         <div style={{
-          background: C.surface, border: `1px solid ${C.border}`,
+          background: C.surface,
+          borderTop: `1px solid ${C.border}`, borderRight: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`,
           borderLeft: `3px solid ${s.done ? C.green : C.accent}`,
           borderRadius: '0 10px 10px 0',
           padding: '14px 18px', marginBottom: 16,
