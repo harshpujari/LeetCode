@@ -6,19 +6,26 @@ Python solutions with React step-through visualizers for selected problems.
 
 ```
 LeetCode/
-├── Array/              — Array & sliding window
+├── Array/              — Arrays & hashing
+├── Backtracking/       — Backtracking / DFS search
 ├── Bash/               — Bash commands 
 ├── BinarySearch/       — Binary search
 ├── BitManipulation/    — Bit manipulation
 ├── DynamicProgramming/ — Dynamic Programming
+├── Graph/              — Graphs & grid DFS/BFS
+├── Greedy/             — Greedy
 ├── LinkedList/         — Linked lists
 ├── Math/               — Math
-├── Sorting/            — Sorting reference notes
+├── Matrix/             — 2D matrix traversal & manipulation
+├── Notes/              — Reference notes (graphs, sorting)
+├── PrefixSum/          — Prefix sums
+├── SlidingWindow/      — Sliding window
 ├── SQL/                — Simple SQL solution
-├── Stack/              — Stack and more 
+├── Stack/              — Stack & monotonic stack
 ├── String/             — Strings
 ├── SystemDesign/       — System design components
-└── Tree/               — Binary trees
+├── Tree/               — Binary trees
+└── TwoPointers/        — Two pointers
 ```
 
 ## Visualizers
